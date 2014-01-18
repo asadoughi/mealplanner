@@ -7,8 +7,8 @@ meal_plan = [
     db.Fruits.Banana,
     2 * db.Carbs.WholeWheatBreadSlice,
     2 * db.Nuts.Almond,
-    2/3 * db.Vegetables.Spinach,
-    db.ProteinSources.ChickenBreast,
+    2/3. * db.Vegetables.Spinach,
+    4/3. * db.ProteinSources.ChickenBreast,
     db.Vegetables.RomaTomato,
     0.45 * db.Vegetables.Avocado,
     db.Carbs.BrownRice,
@@ -19,7 +19,7 @@ meal_plan = [
     5/3. * db.ProteinSources.WildSalmonSockeye,
     db.Vegetables.Broccoli,
     db.Carbs.BrownRice,
-    1.5 * db.ProteinSources.GreekYogurt,
+    db.ProteinSources.GreekYogurt,
 ]
 
 sum_fat, sum_carbs, sum_protein = 0, 0, 0
