@@ -79,24 +79,25 @@ class Beverages(object):
 class ProteinSources(object):
     Egg = Food(Serving(None, 50 * GRAMS), 4.5, 1, 6)
     EggWhite = Food(Serving(3 * TBSP, 46 * GRAMS), 0, 0, 6)
-    ChickenBreast = Food(Serving(None, 3 * OUNCES), 3, 0, 26)
+    ChickenBreast = Food(Serving(None, 4 * OUNCES), 1.5, 0, 27)
     WildSalmonSockeye = Food(Serving(None, 3 * OUNCES), 8, 0, 25)
     GreekYogurt = Food(Serving(CUP, 225 * GRAMS), 0, 16, 23)
 
 
 class Nuts(object):
+    # TODO: at Whole Foods: almonds
     # 12061 - 1 oz = approximately 23 whole almonds
     Almond = Food(Serving(None, 1 * OUNCES), 14, 6, 6)
 
 
 class Carbs(object):
     # 20037 - 1 cup - 195 g
-    BrownRice = Food(Serving(CUP, 195 * GRAMS), 2, 45, 5)
+    BrownRice = Food(Serving(CUP, 180 * GRAMS), 6, 132, 16)
     WholeWheatBreadSlice = Food(Serving(None, 1.5 * OUNCES), 4, 19, 3)
 
 
 class Beans(object):
-    Hummus = Food(Serving(2 * TBSP, 28 * GRAMS), 5, 5, 2)
+    Hummus = Food(Serving(2 * TBSP, 28 * GRAMS), 6, 6, 3)
 
 
 class Fruits(object):
@@ -116,6 +117,3 @@ class Vegetables(object):
     RomaTomato = Food(Serving(None, 100 * GRAMS), 0, 4, 1)
     # 09037 - Avocados, raw, all commercial varieties - ours are from MX
     Avocado = Food(Serving(CUP, 150 * GRAMS), 22, 13, 3)
-
-# TODO: at Whole Foods: brown rice, almonds
-# TODO: chicken breast, hummus
