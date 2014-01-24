@@ -2,7 +2,7 @@
 The ASCII file (Table 16) is in delimited format. Fields are separated by a caret (^) and text fields are surrounded by tildes (~). Data refer to 100 g of the edible portion of the food item. Decimal points are included in the fields. Missing values are denoted by the null value of two consecutive carets (^^) or two carets and two tildes (~~). The file is sorted in ascending order by the NDB number. Two common measures are provided, which are the first two common measures in the Weight file for each NDB number.
 """
 
-FILENAME = "ABBREV.txt"
+FILENAME = "sr26abbr/ABBREV.txt"
 FIELDS = (
     ("Shrt_Desc", str),
     ("Water", 10.2),
