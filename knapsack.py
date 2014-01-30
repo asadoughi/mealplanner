@@ -1,10 +1,12 @@
 from sr26abbr import load
 
+
 db = load.load()
 
 
 target = dict(
     Fiber_TD=38,
+    Protein=155,
     Vit_A_RAE=900,
     Vit_C=90,
     Vit_D_mcg=15,
@@ -47,9 +49,11 @@ for tkey in target.keys():
     weight = target[tkey] / v
     meal.append((k, weight))
 
-calories = 0
+
+sums = dict(Sugar_Tot=0, FA_Sat=0, Cholestrl=0, Energ_Kcal=0)
 for item, weight in meal:
-    print item, "%.2f" % (weight * 100), db[item]["Shrt_Desc"],
-    print db[item]["Energ_Kcal"] * weight
-    calories += db[item]["Energ_Kcal"] * weight
-print "calories:", calories
+    print item, "%.2f" % (weight * 100), db[item]["Shrt_Desc"]
+    for sum_key in sums.keys():
+        if db[item][sum_key]:
+            sums[sum_key] += db[item][sum_key] * weight
+print sums
