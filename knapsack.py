@@ -4,7 +4,7 @@ from sr26abbr import load
 db = load.load()
 
 
-target = dict(
+orig_target = dict(
     Fiber_TD=38,
     Protein=155,
     Vit_A_RAE=900,
@@ -34,11 +34,13 @@ target = dict(
     )
 
 while True:
+    target = orig_target.copy()
     db_nuts = {tkey: {} for tkey in target.keys()}
     for key in db.keys():
         cal = db[key]["Energ_Kcal"]
         for tkey in target.keys():
-            db_nuts[tkey][key] = db[key][tkey] / cal if db[key][tkey] and cal else 0
+            db_nuts[tkey][key] = (db[key][tkey] / cal
+                                  if db[key][tkey] and cal else 0)
 
     sorted_nuts = dict()
     for tkey in target.keys():
@@ -48,12 +50,19 @@ while True:
     meal = []
     for tkey in target.keys():
         k, v = sorted_nuts[tkey][0]
-        weight = target[tkey] / (v * db[key]["Energ_Kcal"])
+        weight = target[tkey] / (v * db[k]["Energ_Kcal"])
         meal.append((k, weight))
+
+        for key in target.keys():
+            if key == tkey:
+                target[key] = 0
+            elif db[k][key]:
+                target[key] = 0 if db[k][key] * weight > target[key] else target[key] - db[k][key] * weight
 
     sums = dict(Sugar_Tot=0, FA_Sat=0, Cholestrl=0, Energ_Kcal=0)
     for item, weight in meal:
-        print item, "%.2f" % (weight * 100), db[item]["Shrt_Desc"]
+        if weight:
+            print item, "%.2f" % (weight * 100), db[item]["Shrt_Desc"]
         for sum_key in sums.keys():
             if db[item][sum_key]:
                 sums[sum_key] += db[item][sum_key] * weight
@@ -61,7 +70,7 @@ while True:
 
     keycode = raw_input("Item code to remove: ")
     print "Removing [%s]" % keycode
-    if len(keycode) <  5:
+    if len(keycode) < 5:
         for key in db.keys():
             if key.startswith(keycode):
                 db.pop(key)
