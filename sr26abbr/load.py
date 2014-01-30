@@ -16,7 +16,7 @@ FIELDS = (
     ("Calcium", 10),
     ("Iron", 10.2),
     ("Magnesium", 10),
-    ("Phosporus", 10),
+    ("Phosphorus", 10),
     ("Potassium", 10),
     ("Sodium", 10),
     ("Zinc", 10.2),
