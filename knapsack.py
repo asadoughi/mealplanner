@@ -33,31 +33,46 @@ orig_target = dict(
     Zinc=11,
     )
 
-while True:
-    target = orig_target.copy()
-    db_nuts = {tkey: {} for tkey in target.keys()}
+
+def get_db_nuts(target_keys):
+    db_nuts = {tkey: {} for tkey in target_keys}
     for key in db.keys():
         cal = db[key]["Energ_Kcal"]
-        for tkey in target.keys():
+        for tkey in target_keys:
             db_nuts[tkey][key] = (db[key][tkey] / cal
                                   if db[key][tkey] and cal else 0)
+    return db_nuts
 
+
+def get_sorted_nuts(db_nuts, target_keys):
     sorted_nuts = dict()
-    for tkey in target.keys():
+    for tkey in target_keys:
         sorted_nuts[tkey] = sorted(
             db_nuts[tkey].iteritems(), reverse=True, key=lambda x: x[1])
+    return sorted_nuts
 
+
+def get_meal(sorted_nuts, target_keys):
     meal = []
-    for tkey in target.keys():
+    for tkey in target_keys:
         k, v = sorted_nuts[tkey][0]
         weight = target[tkey] / (v * db[k]["Energ_Kcal"])
         meal.append((k, weight))
 
-        for key in target.keys():
+        for key in target_keys:
             if key == tkey:
                 target[key] = 0
             elif db[k][key]:
-                target[key] = 0 if db[k][key] * weight > target[key] else target[key] - db[k][key] * weight
+                target[key] = (0 if db[k][key] * weight > target[key]
+                               else target[key] - db[k][key] * weight)
+    return meal
+
+target_keys = orig_target.keys()
+while True:
+    target = orig_target.copy()
+    db_nuts = get_db_nuts(target_keys)
+    sorted_nuts = get_sorted_nuts(db_nuts, target_keys)
+    meal = get_meal(sorted_nuts, target_keys)
 
     sums = dict(Sugar_Tot=0, FA_Sat=0, Cholestrl=0, Energ_Kcal=0)
     for item, weight in meal:
@@ -76,3 +91,6 @@ while True:
                 db.pop(key)
     else:
         db.pop(keycode)
+
+    # rotate thru first to optimize
+    target_keys.append(target_keys.pop(0))
