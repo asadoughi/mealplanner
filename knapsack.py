@@ -4,6 +4,7 @@ db = load.load()
 
 
 target = dict(
+    Fiber_TD=38,
     Vit_A_RAE=900,
     Vit_C=90,
     Vit_D_mcg=15,
@@ -18,6 +19,16 @@ target = dict(
     Panto_acid=5,
     # Biotin=30 mcg,
     Choline_Tot=550,
+    Calcium=1000,
+    Iron=8,
+    Magnesium=400,
+    Manganese=2.3,
+    # Molybdenum = 45 mcg
+    Phosphorus=700,
+    Potassium=4700,
+    Selenium=55,
+    Sodium=1500,
+    Zinc=11,
     )
 
 db_nuts = {tkey: {} for tkey in target.keys()}
@@ -38,7 +49,7 @@ for tkey in target.keys():
 
 calories = 0
 for item, weight in meal:
-    print item, "%.2f" % (weight * 100), 'g', db[item]["Shrt_Desc"],
+    print item, "%.2f" % (weight * 100), db[item]["Shrt_Desc"],
     print db[item]["Energ_Kcal"] * weight
     calories += db[item]["Energ_Kcal"] * weight
 print "calories:", calories
